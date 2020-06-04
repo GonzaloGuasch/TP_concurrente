@@ -23,7 +23,7 @@ public class Buffer {
 
     }
 
-    public synchronized Object  read(Object objectoToRead){
+    public synchronized Object read(Object objectoToRead){
         while(this.isEmpty()){
             try{
                 wait();
@@ -32,14 +32,14 @@ public class Buffer {
             }
 
         }
-        Object objectToReturn = this.data[this.start];
-        this.next(this.start);
+        Object objectToReturn = this.data[this.end];
+        this.end = this.next(this.end);
         notifyAll();
         return objectToReturn;
     }
 
     private boolean isEmpty(){
-        return this.start == this.end;
+        return this.start.equals(this.end);
     }
     private boolean isFull(){
         return next(this.start) == end;
