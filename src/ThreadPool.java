@@ -16,7 +16,9 @@ public class ThreadPool {
         }
 
     }
-
+        public void launch(){  //escribo en el buffer
+            //this.buffer.write();
+        }
         public void stop(){
             for(int i = 0; i < this.amountOfLatinWorkers ; i++){
                 this.buffer.write(new LatinPoisonPill());
