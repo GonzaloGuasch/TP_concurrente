@@ -1,7 +1,7 @@
 package classes;
 
 public class Buffer {
-    private final Object[] queue;
+    private final Runnable[] queue;
     private final Integer n;
     private Integer end;
     private Integer start;
@@ -10,10 +10,10 @@ public class Buffer {
         this.start = 0;
         this.end = size - 1;
         this.n = size;
-        this.queue = new Object[size];
+        this.queue = new Runnable[size];
     }
 
-    public synchronized void write(Object writable) {
+    public synchronized void write(Runnable writable) {
         while(this.isFull()) {
             try {
                 wait();
@@ -26,7 +26,7 @@ public class Buffer {
         notifyAll();
     }
 
-    public synchronized Object read() {
+    public synchronized Runnable read() {
         while(this.isEmpty()) {
             try {
                 wait();
@@ -34,7 +34,7 @@ public class Buffer {
                 e.printStackTrace();
             }
         }
-        Object retrieved = this.queue[this.end];
+        Runnable retrieved = this.queue[this.end];
         this.end = this.next(this.end);
         notifyAll();
         return retrieved;
