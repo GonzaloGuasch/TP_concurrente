@@ -1,34 +1,36 @@
-import src.LatinPoisonPill;
 import src.LatinPoisonPillException;
 
-public class LatinWorker extends Thread{
-    private Buffer buffer;
-    private SortedList sortedList;
-    private CountDown countDown;
+public class LatinWorker extends Thread {
+    private final Buffer buffer;
+    private final SortedList sortedList;
+    private final CountDown countDown;
 
-    public LatinWorker(Buffer buffer){
+    public LatinWorker(Buffer buffer, SortedList list, CountDown countDown) {
         this.buffer = buffer;
-    }
-
-    public LatinWorker(Buffer buffer, SortedList sortedLit, CountDown countDown) {
-        this.buffer = buffer;
-        this.sortedList = sortedList;
+        this.sortedList = list;
         this.countDown = countDown;
     }
 
-    public void run(){
-        try{
-            while(true){
-                //Busco un cuadrado latino del buffer
-                //if(this.esCuadradoLatino(cuadradoDeBuffer){ lo agrego a la sorted list}
-                //decremento el countDown
+    @SuppressWarnings("InfiniteLoopStatement")
+    public void run() {
+        try {
+            while (true) {
+                Object square = this.buffer.read();
+                this.inspectSquare(square);
+                this.countDown.dec();
             }
-        }catch (LatinPoisonPillException latinPoisonPill){
-            System.out.println("Ya no tengo mas cuadrados latinos!");
+        } catch (LatinPoisonPillException latinPoisonPill) {
+            System.out.println("I'm out of squares!");
         }
     }
 
-    private boolean esLatinSquare(Object cuadradoLatino){
-     return false;
+    private void inspectSquare(Object square) throws LatinPoisonPillException {
+        if (this.isLatinSquare(square)) {
+            this.sortedList.add(-1);
+        }
+    }
+
+    private boolean isLatinSquare(Object square) {
+        return false;
     }
 }

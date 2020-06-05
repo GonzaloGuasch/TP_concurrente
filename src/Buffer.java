@@ -1,50 +1,50 @@
 public class Buffer {
-    private Object[] data;
-    private Integer n;
+    private final Object[] queue;
+    private final Integer n;
     private Integer end;
     private Integer start;
 
-    public Buffer(Integer tam){
-        this.n = tam;
-        this.data = new Object[tam];
+    public Buffer(Integer size) {
+        this.n = size;
+        this.queue = new Object[size];
     }
 
-    public synchronized void write(Object objectToWrite){
-        while(this.isFull()){
-            try{
+    public synchronized void write(Object writable) {
+        while(this.isFull()) {
+            try {
                 wait();
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        this.data[this.start] = objectToWrite;
+        this.queue[this.start] = writable;
         this.start = this.next(this.start);
         notifyAll();
-
     }
 
-    public synchronized Object read(Object objectoToRead){
-        while(this.isEmpty()){
-            try{
+    public synchronized Object read() {
+        while(this.isEmpty()) {
+            try {
                 wait();
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
-        Object objectToReturn = this.data[this.end];
+        Object retrieved = this.queue[this.end];
         this.end = this.next(this.end);
         notifyAll();
-        return objectToReturn;
+        return retrieved;
     }
 
-    private boolean isEmpty(){
+    private boolean isEmpty() {
         return this.start.equals(this.end);
     }
-    private boolean isFull(){
+
+    private boolean isFull() {
         return next(this.start) == end;
     }
-    private int next(int i){
+
+    private int next(int i) {
         return (i+1)%(this.n+1);
     }
 }
