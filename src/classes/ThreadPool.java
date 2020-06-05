@@ -24,7 +24,7 @@ public class ThreadPool {
         int amountOfSquares = Integer.parseInt(reader.readLine());
         for (int i = 1; i <= amountOfSquares; i++) {
             Square square = new Square(reader.readLine());
-            this.buffer.write(new SquareTask(square, this.sortedList));
+            this.buffer.write(new SquareTask(square, i, this.sortedList));
         }
         this.stop();
     }
