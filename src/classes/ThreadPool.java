@@ -5,13 +5,15 @@ import java.io.*;
 public class ThreadPool {
     private final Buffer buffer;
     private final Integer amountOfLatinWorkers;
-    private final SortedList sortedList;
+    private final CountDown countDown;
+    public final SortedList sortedList;
 
     public ThreadPool(Buffer buffer, Integer amountOfLatinWorkers) {
         this.sortedList = new SortedList();
-        CountDown countDown = new CountDown(1000); //cantidad de cuadrados latinos
+        this.countDown = new CountDown(10); //cantidad de cuadrados latinos
         this.buffer = buffer;
-        this.amountOfLatinWorkers = amountOfLatinWorkers;for (int i = 0; i < amountOfLatinWorkers; i++) {
+        this.amountOfLatinWorkers = amountOfLatinWorkers;
+        for (int i = 0; i < amountOfLatinWorkers; i++) {
             new LatinWorker(this.buffer, countDown).start();
         }
     }
@@ -24,12 +26,14 @@ public class ThreadPool {
             Square square = new Square(reader.readLine());
             this.buffer.write(new SquareTask(square, this.sortedList));
         }
+        this.stop();
     }
 
     public void stop() {
         for (int i = 0; i < this.amountOfLatinWorkers; i++) {
             this.buffer.write(new LatinPoisonPill());
         }
+        this.countDown.zero();
+        System.out.println(this.sortedList.toString());
     }
-
 }
