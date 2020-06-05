@@ -8,7 +8,7 @@ public class Buffer {
 
     public Buffer(Integer size) {
         this.start = 0;
-        this.end = size - 1;
+        this.end = 0;
         this.n = size;
         this.queue = new Runnable[size];
     }
@@ -49,7 +49,7 @@ public class Buffer {
     }
 
     private int next(int i) {
-        return (i+1)%(this.n+1);
+        return (i+1)%(this.n);
     }
 }
 
