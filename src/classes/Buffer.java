@@ -1,3 +1,5 @@
+package classes;
+
 public class Buffer {
     private final Object[] queue;
     private final Integer n;
@@ -5,6 +7,8 @@ public class Buffer {
     private Integer start;
 
     public Buffer(Integer size) {
+        this.start = 0;
+        this.end = size - 1;
         this.n = size;
         this.queue = new Object[size];
     }

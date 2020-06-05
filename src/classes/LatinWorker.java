@@ -1,4 +1,4 @@
-import src.LatinPoisonPillException;
+package classes;
 
 public class LatinWorker extends Thread {
     private final Buffer buffer;

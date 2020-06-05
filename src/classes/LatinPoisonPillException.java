@@ -1,4 +1,4 @@
-package src;
+package classes;
 
 public class LatinPoisonPillException extends RuntimeException {
 }
