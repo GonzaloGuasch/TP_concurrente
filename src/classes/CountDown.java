@@ -9,6 +9,7 @@ public class CountDown {
 
     public synchronized void dec() {
         this.value--;
+        notifyAll();
     }
 
     public synchronized void zero() {
@@ -19,7 +20,6 @@ public class CountDown {
                 e.printStackTrace();
             }
         }
-        notifyAll();
     }
 
     private boolean isLocking() {
