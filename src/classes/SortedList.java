@@ -15,4 +15,9 @@ public class SortedList {
     public Integer get(Integer index) {
         return this.elements.get(index);
     }
+
+    @Override
+    public String toString() {
+        return this.elements.toString();
+    }
 }
