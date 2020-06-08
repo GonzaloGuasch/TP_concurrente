@@ -19,8 +19,7 @@ public class ThreadPool {
     }
 
     public void launch() throws IOException {
-        File file = new File("./src/lib/inputs-ejemplo.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = this.reader();
         int amountOfSquares = Integer.parseInt(reader.readLine());
         for (int i = 1; i <= amountOfSquares; i++) {
             Square square = new Square(reader.readLine());
@@ -38,8 +37,13 @@ public class ThreadPool {
     }
 
     private Integer countDownSize() throws IOException {
+        BufferedReader reader = this.reader();
+        return Integer.parseInt(reader.readLine());
+    }
+
+    private BufferedReader reader() throws FileNotFoundException {
         File file = new File("./src/lib/inputs-ejemplo.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        return Integer.parseInt(reader.readLine());
+        return reader;
     }
 }

@@ -18,6 +18,6 @@ public class Main {
         long endTime = System.nanoTime();
 
         Thread.sleep(300);
-        System.out.println(((endTime - startTime) / 1000000000));
+        System.out.println("Tiempo de ejecucion: " + ((endTime - startTime) / 1000000000) + " Segundos");
     }
 }
