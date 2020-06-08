@@ -1,6 +1,6 @@
 package classes;
 
-public class CountDown {
+public class CountDown{
     private Integer value;
 
     public CountDown(Integer value) {

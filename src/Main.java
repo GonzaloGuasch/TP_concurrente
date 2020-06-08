@@ -1,15 +1,17 @@
 import classes.Buffer;
+import classes.Input;
 import classes.ThreadPool;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        //cuadrados de input
-        Buffer buffer = new Buffer(10);
-        ThreadPool threadPool = new ThreadPool(buffer, 10);
+        Input input = new Input();
+
+        Buffer buffer = new Buffer(input.tamBuffer());
+        ThreadPool threadPool = new ThreadPool(buffer, input.amountOfLatinWorkers());
 
         threadPool.launch();
     }

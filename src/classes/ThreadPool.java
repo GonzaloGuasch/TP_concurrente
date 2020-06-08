@@ -8,9 +8,9 @@ public class ThreadPool {
     private final CountDown countDown;
     public final SortedList sortedList;
 
-    public ThreadPool(Buffer buffer, Integer amountOfLatinWorkers) {
+    public ThreadPool(Buffer buffer, Integer amountOfLatinWorkers) throws IOException {
         this.sortedList = new SortedList();
-        this.countDown = new CountDown(10); //cantidad de cuadrados latinos
+        this.countDown = new CountDown(this.countDownSize()); //cantidad de cuadrados latinos
         this.buffer = buffer;
         this.amountOfLatinWorkers = amountOfLatinWorkers;
         for (int i = 0; i < amountOfLatinWorkers; i++) {
@@ -18,7 +18,7 @@ public class ThreadPool {
         }
     }
 
-    public void launch() throws IOException {  //escribo en el buffer
+    public void launch() throws IOException {
         File file = new File("./src/lib/inputs-ejemplo.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int amountOfSquares = Integer.parseInt(reader.readLine());
@@ -35,5 +35,11 @@ public class ThreadPool {
         }
         this.countDown.zero();
         System.out.println(this.sortedList.toString());
+    }
+
+    private Integer countDownSize() throws IOException {
+        File file = new File("./src/lib/inputs-ejemplo.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        return Integer.parseInt(reader.readLine());
     }
 }

@@ -12,7 +12,7 @@ public class SortedList {
         Collections.sort(this.elements);
     }
 
-    public Integer get(Integer index) {
+    public synchronized Integer get(Integer index) {
         return this.elements.get(index);
     }
 
