@@ -5,12 +5,12 @@ import java.io.*;
 public class ThreadPool {
     private final Buffer buffer;
     private final Integer amountOfLatinWorkers;
-    private final CountDown countDown;
+    public final CountDown countDown;
     public final SortedList sortedList;
 
     public ThreadPool(Buffer buffer, Integer amountOfLatinWorkers) throws IOException {
         this.sortedList = new SortedList();
-        this.countDown = new CountDown(this.countDownSize()); //cantidad de cuadrados latinos
+        this.countDown = new CountDown(this.countDownSize());
         this.buffer = buffer;
         this.amountOfLatinWorkers = amountOfLatinWorkers;
         for (int i = 0; i < amountOfLatinWorkers; i++) {
