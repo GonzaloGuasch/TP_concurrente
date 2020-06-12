@@ -10,10 +10,9 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Input input = new Input();
 
-        long startTime = System.nanoTime();
         Buffer buffer = new Buffer(input.tamBuffer());
         ThreadPool threadPool = new ThreadPool(buffer, input.amountOfLatinWorkers());
-
+        long startTime = System.nanoTime();
         threadPool.launch();
         long endTime = System.nanoTime();
 
